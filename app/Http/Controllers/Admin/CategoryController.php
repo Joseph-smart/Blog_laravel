@@ -77,9 +77,22 @@ class CategoryController extends CommonController
     }
 
     //delete admin/category/{category} 删除单个分类
-    public function destroy()
+    public function destroy($cate_id)
     {
-
+        $response = Category::where('cate_id', $cate_id)->delete();
+        Category::where('cate_pid', $cate_id)->update(['cate_pid' => 0]);
+        if ($response) {
+            $data = [
+                'status' => 0,
+                'message' => '删除成功'
+            ];
+        } else {
+            $data = [
+                'status' => 1,
+                'message' => '删除失败'
+            ];
+        }
+        return $data;
     }
 
     //put admin/category/{category} 更新分类

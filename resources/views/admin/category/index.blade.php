@@ -29,11 +29,13 @@
     <!--搜索结果页面 列表 开始-->
     <form action="#" method="post">
         <div class="result_wrap">
+            <div class="result_title">
+                <h3>分类管理</h3>
+            </div>
             <div class="result_content">
                 <div class="short_wrap">
-                    <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-                    <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-                    <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
+                    <a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a>
+                    <a href="{{url('admin/category')}}"><i class="fa fa-recycle"></i>全部分类</a>
                 </div>
             </div>
         </div>
@@ -64,14 +66,14 @@
                             <td>{{$v->cate_view}}</td>
                             <td>
                                 <a href="{{url('admin/category/'.$v->cate_id.'/edit')}}">修改</a>
-                                <a href="#">删除</a>
+                                <a href="javascript:;" onclick="deleteCategory({{$v->cate_id}})">删除</a>
                             </td>
                         </tr>
                     @endforeach
 
                 </table>
 
-
+                {{--分页待完善--}}
                 <div class="page_nav">
                     <div>
                         <a class="first" href="/wysls/index.php/Admin/Tag/index/p/1.html">第一页</a>
@@ -88,22 +90,15 @@
                 </div>
 
 
-                <div class="page_list">
-                    <ul>
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </form>
 
     <script>
+        function refresh() {
+            location.href = location.href;
+        }
+
         function changeOrder(obj, cate_id) {
             var cate_order = $(obj).val();
             $.post('{{url('admin/cate/changeorder')}}', {
@@ -112,7 +107,6 @@
                 'cate_order': cate_order,
             }, function (data) {
                 if (data.status == 0) {
-                    //成功
                     layer.msg(data.message, {icon: 6});
                 } else {
                     //失败
@@ -120,6 +114,32 @@
                 }
             });
         }
+
+        //删除分类
+        function deleteCategory(cate_id) {
+            layer.confirm('确定要删除分类？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.post('{{url('admin/category/')}}/' + cate_id, {
+                    '_method': 'delete',
+                    '_token': '{{csrf_token()}}'
+                }, function (data) {
+                    if (data.status == 0) {
+                        setTimeout(refresh, 2000);
+                        layer.msg(data.message, {icon: 6});
+                    } else {
+                        setTimeout(refresh, 2000);
+                        layer.msg(data.message, {icon: 5});
+                    }
+                });
+            }, function () {
+                layer.msg('也可以这样', {
+                    time: 20000, //20s后自动关闭
+                    btn: ['明白了', '知道了']
+                });
+            });
+        }
+
     </script>
 @endsection
 
