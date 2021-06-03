@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::any('admin/login', 'Admin\LoginController@login');
 Route::get('admin/code', 'Admin\LoginController@code');
 
+//运营管理端路由
 Route::group(['middleware' => ['web', 'admin.login'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('index', 'IndexController@index');
     Route::get('info', 'IndexController@info');
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['web', 'admin.login'], 'prefix' => 'admin', 'name
     //changeOrder
     Route::post('cate/changeorder', 'CategoryController@changeOrder');
     Route::resource('category', 'CategoryController');
+    Route::resource('article', 'ArticleController');
 });
 
 Route::get('/test', 'Test\TestController@picReplace');
