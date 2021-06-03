@@ -34,45 +34,50 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th width="120"><i class="require">*</i>父级分类：</th>
+                    <th width="120">分类：</th>
                     <td>
-                        <select name="cate_pid">
-                            <option value="0">==顶级分类==</option>
+                        <select name="cate_id">
                             @foreach($data as $item)
-                                <option value="{{$item->cate_id}}">{{$item->cate_name}}</option>
+                                <option value="{{$item->cate_id}}">{{$item->_cate_name}}</option>
                             @endforeach
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i>分类名称：</th>
+                    <th>标题：</th>
                     <td>
-                        <input type="text" name="cate_name">
-                        <span><i class="fa fa-exclamation-circle yellow"></i>分类名称必须填写</span>
+                        <input type="text" class="lg" name="article_title">
                     </td>
                 </tr>
                 <tr>
-                    <th>分类标题：</th>
+                    <th>编辑：</th>
                     <td>
-                        <input type="text" class="lg" name="cate_title">
+                        <input type="text" class="sm" name="article_author">
                     </td>
                 </tr>
                 <tr>
-                    <th>关键词：</th>
+                    <th>封面：</th>
                     <td>
-                        <textarea name="cate_keywords"></textarea>
+                        <input type="text" size="50" name="article_cover">
+                    </td>
+                </tr>
+                <tr>
+                    <th>标签：</th>
+                    <td>
+                        <input type="text" class="lg" name="article_tag">
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea name="cate_description"></textarea>
+                        <textarea name="article_description"></textarea>
                     </td>
                 </tr>
+
                 <tr>
-                    <th><i class="require">*</i>排序：</th>
+                    <th>正文：</th>
                     <td>
-                        <input type="text" class="sm" name="cate_order">
+                        <textarea name="article_content"></textarea>
                     </td>
                 </tr>
                 <tr>
