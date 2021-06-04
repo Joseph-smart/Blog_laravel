@@ -23,7 +23,7 @@
             <div class="short_wrap">
                 <a href="{{url('admin/article/create')}}"><i class="fa fa-plus"></i>添加文章</a>
                 <a href="{{url('admin/article')}}"><i class="fa fa-recycle"></i>全部文章</a>
-{{--                <a href="#"><i class="fa fa-refresh"></i>更新排序</a>--}}
+                {{--                <a href="#"><i class="fa fa-refresh"></i>更新排序</a>--}}
             </div>
         </div>
     </div>
@@ -77,7 +77,18 @@
                 <tr>
                     <th>正文：</th>
                     <td>
-                        <textarea name="article_content"></textarea>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+                        <script id="editor" name="article_content" type="text/plain" style="width:860px; height:500px;"></script>
+                        <script type="text/javascript">
+                            var ue = UE.getEditor('editor');
+                        </script>
+                        <style>
+                            .edui-default{line-hight:28px}
+                            div.edui-combox-body,div.edui-button-body,div.edui-splitbutton-body {overflow: hidden; height: 20px;}
+                            div.edui-box{overflow: hidden; height: 22px;}
+                        </style>
                     </td>
                 </tr>
                 <tr>
