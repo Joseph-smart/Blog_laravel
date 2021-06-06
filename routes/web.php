@@ -27,7 +27,9 @@ Route::group(['middleware' => ['web', 'admin.login'], 'prefix' => 'admin', 'name
 
     //changeOrder
     Route::post('cate/changeorder', 'CategoryController@changeOrder');
+    //分类相关资源
     Route::resource('category', 'CategoryController');
+    //文章相关资源
     Route::resource('article', 'ArticleController');
 });
 

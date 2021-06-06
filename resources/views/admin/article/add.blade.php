@@ -29,7 +29,7 @@
     </div>
 
     <div class="result_wrap">
-        <form action="{{url('admin/category')}}" method="post">
+        <form action="{{url('admin/article')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -46,31 +46,31 @@
                 <tr>
                     <th>标题：</th>
                     <td>
-                        <input type="text" class="lg" name="article_title">
+                        <input type="text" class="lg" name="title">
                     </td>
                 </tr>
                 <tr>
                     <th>编辑：</th>
                     <td>
-                        <input type="text" class="sm" name="article_author">
+                        <input type="text" class="sm" name="edit">
                     </td>
                 </tr>
                 <tr>
                     <th>封面：</th>
                     <td>
-                        <input type="text" size="50" name="article_cover">
+                        <input type="text" size="50" name="cover">
                     </td>
                 </tr>
                 <tr>
                     <th>标签：</th>
                     <td>
-                        <input type="text" class="lg" name="article_tag">
+                        <input type="text" class="lg" name="tag">
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea name="article_description"></textarea>
+                        <textarea name="description"></textarea>
                     </td>
                 </tr>
 
@@ -80,7 +80,7 @@
                         <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"></script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                        <script id="editor" name="article_content" type="text/plain" style="width:860px; height:500px;"></script>
+                        <script id="editor" name="content" type="text/plain" style="width:860px; height:500px;"></script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('editor');
                         </script>
