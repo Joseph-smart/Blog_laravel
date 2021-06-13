@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Model\Article;
 use App\Http\Model\Category;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,6 +50,44 @@ class ArticleController extends CommonController
             return back()->withErrors($validator);
         }
 
+    }
+
+    //get admin/article/{article_id}/edit 编辑文章
+    public function edit($article_id)
+    {
+        $data = (new Category())->tree();
+        $article = Article::where('id', $article_id)->firstOrFail();
+        return view('admin.article.edit', compact('data', 'article'));
+    }
+
+    //put admin/article/{article_id}
+    public function update($article_id)
+    {
+        $input = Input::except('_token', '_method');
+        $result = Article::where('id', $article_id)
+            ->update($input);
+        if ($result) {
+            return redirect('admin/article');
+        } else {
+            return back()->with('errors', '更新失败！');
+        }
+    }
+
+    public function destroy($article_id)
+    {
+        $response = Article::where('id', $article_id)->delete();
+        if ($response) {
+            $data = [
+                'status' => 0,
+                'message' => '删除成功'
+            ];
+        } else {
+            $data = [
+                'status' => 1,
+                'message' => '删除失败'
+            ];
+        }
+        return $data;
     }
 
 

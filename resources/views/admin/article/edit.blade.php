@@ -6,7 +6,7 @@
 
     <div class="result_wrap">
         <div class="result_title">
-            <h3>添加文章</h3>
+            <h3>编辑文章</h3>
             @if(count($errors)>0)
                 <div class="mark">
                     @if(is_object($errors))
@@ -28,7 +28,8 @@
     </div>
 
     <div class="result_wrap">
-        <form action="{{url('admin/article')}}" method="post">
+        <form action="{{url('admin/article/'. $article->id)}}" method="post">
+            <input type="hidden" name="_method" value="put">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -37,7 +38,11 @@
                     <td>
                         <select name="cate_id">
                             @foreach($data as $item)
-                                <option value="{{$item->cate_id}}">{{$item->_cate_name}}</option>
+                                <option value="{{$item->cate_id}}"
+                                        @if($article->cate_id == $item->cate_id) selected
+                                    @endif
+                                >{{$item->_cate_name}}
+                                </option>
                             @endforeach
                         </select>
                     </td>
@@ -45,15 +50,15 @@
                 <tr>
                     <th>标题：</th>
                     <td>
-                        <input type="text" class="lg" name="title">
+                        <input type="text" class="lg" name="title" value="{{$article->title}}">
                     </td>
                 </tr>
-                <tr>
-                    <th>编辑：</th>
-                    <td>
-                        <input type="text" class="sm" name="edit">
-                    </td>
-                </tr>
+                {{--                <tr>--}}
+                {{--                    <th>编辑：</th>--}}
+                {{--                    <td>--}}
+                {{--                        <input type="text" class="sm" name="edit" value="{{$article->title}}">--}}
+                {{--                    </td>--}}
+                {{--                </tr>--}}
                 <tr>
                     <th>封面：</th>
                     <td>
@@ -63,30 +68,44 @@
                 <tr>
                     <th>标签：</th>
                     <td>
-                        <input type="text" class="lg" name="tag">
+                        <input type="text" class="lg" name="tag" value="{{$article->tag}}">
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea name="description"></textarea>
+                        <textarea name="description">{{$article->description}}</textarea>
                     </td>
                 </tr>
 
                 <tr>
                     <th>正文：</th>
                     <td>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"></script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
-                        <script id="editor" name="content" type="text/plain" style="width:860px; height:500px;"></script>
+                        <script type="text/javascript" charset="utf-8"
+                                src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8"
+                                src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8"
+                                src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+                        <script id="editor" name="content" type="text/plain"
+                                style="width:860px; height:500px;">{!!$article->content!!}</script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('editor');
                         </script>
                         <style>
-                            .edui-default{line-hight:28px}
-                            div.edui-combox-body,div.edui-button-body,div.edui-splitbutton-body {overflow: hidden; height: 20px;}
-                            div.edui-box{overflow: hidden; height: 22px;}
+                            .edui-default {
+                                line-hight: 28px
+                            }
+
+                            div.edui-combox-body, div.edui-button-body, div.edui-splitbutton-body {
+                                overflow: hidden;
+                                height: 20px;
+                            }
+
+                            div.edui-box {
+                                overflow: hidden;
+                                height: 22px;
+                            }
                         </style>
                     </td>
                 </tr>

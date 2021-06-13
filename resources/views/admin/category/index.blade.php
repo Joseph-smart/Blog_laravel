@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="crumb_warp">
-        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 全部分类
+        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 分类管理
     </div>
 
     {{--    <!--结果页快捷搜索框 开始-->--}}
@@ -133,9 +133,8 @@
                     }
                 });
             }, function () {
-                layer.msg('也可以这样', {
-                    time: 20000, //20s后自动关闭
-                    btn: ['明白了', '知道了']
+                layer.msg('已取消删除', {
+                    time: 3000, //3s后自动关闭
                 });
             });
         }
